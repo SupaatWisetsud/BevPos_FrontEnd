@@ -1,13 +1,22 @@
-import * as React from "react";
-import { View } from "react-native";
-import { Text } from "native-base";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React from "react";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import {
+  Login
+} from './src/views';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   
   return (
-    <View>
-      <Icon name="home" size={18} />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login" screenOptions={{
+        headerShown: false
+      }} >
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
