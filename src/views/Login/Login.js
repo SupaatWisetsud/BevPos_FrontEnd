@@ -1,28 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import { AuthContext } from '../../hook/context';
 
 const MutationSignIn = gql`
     mutation signIn($username: String!, $password: String!){
         signIn(username: $username, password: $password) {
             type
-            data {
-                _id
-                username
-                password
-                first_name
-                last_name
-                email
-                number_phone
-            }
+            token
         }
     }
 `;
 const Login = () => {
     
+    const { signIn } = useContext(AuthContext);
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -41,10 +36,9 @@ const Login = () => {
                     password
                 }
             })
-            .then(async ({data: {signIn: { data }}}) => {
-                if(data){
-                    alert("Login success");
-                    await AsyncStorage.setItem('token', "value")
+            .then(async ({data: {signIn: { token }}}) => {
+                if(token){
+                    signIn(token)
                 }else{
                     alert("Username หรือ Password ของท่านไม่ถูกต้อง!");
                     setPassword("");
@@ -52,7 +46,6 @@ const Login = () => {
             })
             .catch( error => alert("ไม่สามารถทำรายการได้..!!") );
 
-            // setUsername("");
         }
     }
 
@@ -100,15 +93,18 @@ const styles = StyleSheet.create({
         padding: 10
     },
     form: {
-        padding: 10,
+        padding: 18,
         flex: 1,
+        backgroundColor: "white",
+        marginHorizontal: 10,
+        marginTop: -30, 
+        borderRadius: 30
     },
     title: {
         flex: 1,
         backgroundColor: "#114b5f",
         height: 190,
-        borderBottomRightRadius: 45,
-        borderBottomLeftRadius: 45,
+        borderBottomRightRadius: 85,
         justifyContent: "center",
         alignItems: "center"
     },
