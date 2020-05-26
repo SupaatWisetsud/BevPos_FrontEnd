@@ -5,12 +5,13 @@ import {
     DrawerItemList,
     DrawerItem
 } from '@react-navigation/drawer';
+import { DrawerActions } from '@react-navigation/native';
 import { AuthContext } from '../hook/context';
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Text } from 'native-base';
 
 const DrawerContent = (props) => {
-
+    const { navigation } = props;
     const { signOut, loginState: { userProfile } } = useContext(AuthContext);
 
     return (
@@ -30,7 +31,10 @@ const DrawerContent = (props) => {
                 <DrawerItem 
                     icon={({color, size}) => <Icon name="sign-out" color={color} size={size} />}
                     label="ออกจากระบบ"
-                    onPress={() => signOut()}
+                    onPress={() => {
+                        navigation.dispatch(DrawerActions.closeDrawer());
+                        signOut();
+                    }}
                 />
             </DrawerContentScrollView>
         </View>

@@ -98,13 +98,13 @@ export default function App() {
     }, 1000);
   }, []);
 
-  // if( loginState.isLoading ) {
-  //   return(
-  //     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-  //       <Spinner color='red' />
-  //     </View>
-  //   );
-  // }
+  if( loginState.isLoading ) {
+    return(
+      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+        <Spinner color='red' />
+      </View>
+    );
+  }
   
   return (
     <AuthContext.Provider value={{...authContext, loginState}}>

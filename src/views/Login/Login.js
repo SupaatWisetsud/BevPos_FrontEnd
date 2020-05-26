@@ -28,9 +28,9 @@ const Login = ({
     const onSignIn = async () => {
         
         if( username.trim() !== "" 
-            && password.trim() !== ""
-            && username !== undefined
-            && password !== undefined
+        && password.trim() !== ""
+        && username !== undefined
+        && password !== undefined
         ){
             await todoSignIn({
                 variables: {
@@ -40,6 +40,7 @@ const Login = ({
             })
             .then(async ({data: {signIn: { token }}}) => {
                 if(token){
+                    
                     signIn(token)
                 }else{
                     alert("Username หรือ Password ของท่านไม่ถูกต้อง!");
