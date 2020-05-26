@@ -1,18 +1,21 @@
 import React, { useEffect } from "react";
+import { View } from "react-native";
+import { Spinner } from "native-base";
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage'
 import { AuthContext } from './src/hook/context';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import jwtDecode from 'jwt-decode';
+import DrawerContent from './src/layout/DrawerContent';
 
 import {
   Login,
-  Home
+  Home,
+  Stock,
+  Report,
+  About
 } from './src/views';
-import { View } from "react-native";
-import { Spinner } from "native-base";
-import jwtDecode from 'jwt-decode';
-import DrawerContent from './src/layout/DrawerContent';
 
 const Drawer = createDrawerNavigator();
 
@@ -112,6 +115,24 @@ export default function App() {
               options={{
                 drawerIcon: ({color, size}) => <Icon name="home" color={color} size={size} />,
                 drawerLabel: "หน้าหลัก"
+              }}    
+            />
+            <Drawer.Screen name="Stock" component={Stock} 
+              options={{
+                drawerIcon: ({color, size}) => <Icon name="archive" color={color} size={size} />,
+                drawerLabel: "สต๊อกสินค้า"
+              }}    
+            />
+            <Drawer.Screen name="Report" component={Report} 
+              options={{
+                drawerIcon: ({color, size}) => <Icon name="flag" color={color} size={size} />,
+                drawerLabel: "รายงาน"
+              }}    
+            />
+            <Drawer.Screen name="About" component={About} 
+              options={{
+                drawerIcon: ({color, size}) => <Icon name="exclamation-circle" color={color} size={size} />,
+                drawerLabel: "เกี่ยวกับ"
               }}    
             />
           </Drawer.Navigator>

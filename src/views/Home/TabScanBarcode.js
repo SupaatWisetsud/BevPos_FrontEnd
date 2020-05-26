@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { Container, Button, Header, Left, Body, Title, Right } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { DrawerActions } from '@react-navigation/native';
+import { RNCamera } from 'react-native-camera';
+import BarcodeMask from 'react-native-barcode-mask';
 
-const TabScanBarcode = () => {
+const TabScanBarcode = ({
+    navigation
+}) => {
 
     return (
         <Container style={{flex: 1}}>
@@ -19,9 +22,13 @@ const TabScanBarcode = () => {
                 </Body>
                 <Right></Right>
             </Header>
-            <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-                <Text>Scan Bar Code</Text>
-            </View>
+            <RNCamera
+                style={{flex: 1}}
+                type="back"
+                flashMode="on"
+            >
+                <BarcodeMask width={300} height={100} showAnimatedLine={false} />
+            </RNCamera>
         </Container>
     )
 }

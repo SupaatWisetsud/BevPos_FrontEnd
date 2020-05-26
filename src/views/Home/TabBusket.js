@@ -4,7 +4,9 @@ import { Container, Button, Header, Left, Body, Title, Right } from 'native-base
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { DrawerActions } from '@react-navigation/native';
 
-const TabBusket = () => {
+const TabBusket = ({
+    navigation
+}) => {
 
     return (
         <Container style={{flex: 1}}>
