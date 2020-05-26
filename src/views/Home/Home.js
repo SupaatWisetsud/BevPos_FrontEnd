@@ -1,20 +1,32 @@
-import React, { useContext } from 'react';
-import { Container, Text, Button } from 'native-base';
-import { View } from 'react-native';
-import { AuthContext } from '../../hook/context';
+import React from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import TabHome from './TabHome';
+import TabBusket from './TabBusket';
+import TabScanBarcode from './TabScanBarcode';
+
+const Tab = createBottomTabNavigator();
 
 const Home = () => {
 
-    const { signOut } = useContext(AuthContext);
-
     return (
-        <Container style={{flex: 1}}>
-            <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-                <Button onPress={signOut}>
-                    <Text>Log Out</Text>
-                </Button>
-            </View>
-        </Container>
+        <Tab.Navigator tabBarOptions={{
+            inactiveBackgroundColor: "#114b5f",
+            activeBackgroundColor: "#114b5f",
+            inactiveTintColor: "white",
+            activeTintColor: "#7DCEA0"
+        }}>
+            <Tab.Screen name="Home" component={TabHome} 
+                options={{tabBarIcon: ({color, size}) => <Icon name="home" color={color} size={size} /> }} 
+            />
+            <Tab.Screen name="Busket" component={TabBusket} 
+                options={{tabBarIcon: ({color, size}) => <Icon name="shopping-basket" color={color} size={size} /> }} 
+            />
+            <Tab.Screen name="Scan" component={TabScanBarcode} 
+                options={{tabBarIcon: ({color, size}) => <Icon name="camera-retro" color={color} size={size} /> }} 
+            />
+        </Tab.Navigator>
     )
 }
 

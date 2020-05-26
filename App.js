@@ -1,23 +1,27 @@
 import React, { useEffect } from "react";
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage'
 import { AuthContext } from './src/hook/context';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {
   Login,
   Home
 } from './src/views';
-import { View, Text } from "react-native";
+import { View } from "react-native";
+import { Spinner } from "native-base";
+import jwtDecode from 'jwt-decode';
+import DrawerContent from './src/layout/DrawerContent';
 
-const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   
   const initialLoginState = {
     isLoading: true,
     userToken: null,
+    userProfile: null
   };
 
   const loginReducer = (prevState, action) => {
@@ -26,12 +30,14 @@ export default function App() {
         return {
           ...prevState,
           userToken: action.token,
+          userProfile: action.profile,
           isLoading: false,
         };
       case 'LOGIN': 
         return {
           ...prevState,
           userToken: action.token,
+          userProfile: action.profile,
           isLoading: false,
         };
       case 'LOGOUT': 
@@ -47,12 +53,17 @@ export default function App() {
 
   const authContext = React.useMemo(() => ({
     signIn: async(token) => {
+      
+      let profile;
+
       try {
         await AsyncStorage.setItem('token', token);
+        profile = jwtDecode(token);
       } catch(e) {
         console.log(e);
       }
-      dispatch({ type: 'LOGIN', token: token });
+
+      dispatch({ type: 'LOGIN', token: token, profile: profile?._doc || null });
     },
     signOut: async() => {
       try {
@@ -68,38 +79,45 @@ export default function App() {
     setTimeout(async() => {
       
       let userToken;
+      let profile;
+
       userToken = null;
+      profile = null;
+
       try {
         userToken = await AsyncStorage.getItem('token');
+        profile = jwtDecode(userToken);
       } catch(e) {
         console.log(e);
       }
       // console.log('user token: ', userToken);
-      dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
+      dispatch({ type: 'RETRIEVE_TOKEN', token: userToken, profile: profile?._doc || null });
     }, 1000);
   }, []);
 
   if( loginState.isLoading ) {
     return(
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-        <Text>Loading...</Text>
+        <Spinner color='red' />
       </View>
     );
   }
   
   return (
-    <AuthContext.Provider value={authContext}>
+    <AuthContext.Provider value={{...authContext, loginState}}>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{
-          headerShown: false
-        }} >
-          {
-            loginState.userToken?
-              <Stack.Screen name="Home" component={Home} />
-              :
-              <Stack.Screen name="Login" component={Login} />
-          }
-        </Stack.Navigator>
+        {loginState.userToken? 
+          <Drawer.Navigator initialRouteName="Home" drawerContent={props => <DrawerContent {...props} />}>
+            <Drawer.Screen name="Home" component={Home} 
+              options={{
+                drawerIcon: ({color, size}) => <Icon name="home" color={color} size={size} />,
+                drawerLabel: "หน้าหลัก"
+              }}    
+            />
+          </Drawer.Navigator>
+        :
+          <Login />
+        }
       </NavigationContainer>
     </AuthContext.Provider>
   );

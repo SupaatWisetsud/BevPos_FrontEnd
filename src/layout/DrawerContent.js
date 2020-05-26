@@ -1,0 +1,40 @@
+import React, { useContext } from 'react';
+import { View, Image } from 'react-native';
+import {
+    DrawerContentScrollView,
+    DrawerItemList,
+    DrawerItem
+} from '@react-navigation/drawer';
+import { AuthContext } from '../hook/context';
+import Icon from "react-native-vector-icons/FontAwesome";
+import { Text } from 'native-base';
+
+const DrawerContent = (props) => {
+
+    const { signOut, loginState: { userProfile } } = useContext(AuthContext);
+
+    return (
+        <View style={{flex: 1}}>
+            <View style={{backgroundColor: "#4a7c59", height: 140, alignItems: "center", padding: 10, flexDirection: "row"}}>
+                <Image 
+                    style={{width: 80, height: 80, borderRadius: 50}}
+                    source={{uri: "https://miro.medium.com/max/3200/1*dt3SJbXiOILlXnZzIqJZOA.png"}}
+                />
+                <View style={{padding: 10}}>
+                    <Text style={{color: "white"}}>{userProfile?.first_name + " " + userProfile?.last_name}</Text>
+                    <Text style={{color: "white"}}>status: online</Text>
+                </View>
+            </View>
+            <DrawerContentScrollView {...props}>
+                <DrawerItemList {...props} />
+                <DrawerItem 
+                    icon={({color, size}) => <Icon name="sign-out" color={color} size={size} />}
+                    label="ออกจากระบบ"
+                    onPress={() => signOut()}
+                />
+            </DrawerContentScrollView>
+        </View>
+    );
+}
+
+export default DrawerContent;
