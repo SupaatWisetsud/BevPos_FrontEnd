@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Spinner } from "native-base";
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage'
 import { AuthContext } from './src/hook/context';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -11,6 +12,7 @@ import DrawerContent from './src/layout/DrawerContent';
 
 import {
   Login,
+  Register,
   Home,
   Stock,
   Report,
@@ -18,6 +20,7 @@ import {
 } from './src/views';
 
 const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
   
@@ -84,12 +87,9 @@ export default function App() {
       let userToken;
       let profile;
 
-      userToken = null;
-      profile = null;
-
       try {
         userToken = await AsyncStorage.getItem('token');
-        profile = jwtDecode(userToken);
+        if(userToken) profile = jwtDecode(userToken);
       } catch(e) {
         console.log(e);
       }
@@ -98,13 +98,13 @@ export default function App() {
     }, 1000);
   }, []);
 
-  if( loginState.isLoading ) {
-    return(
-      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-        <Spinner color='red' />
-      </View>
-    );
-  }
+  // if( loginState.isLoading ) {
+  //   return(
+  //     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+  //       <Spinner color='red' />
+  //     </View>
+  //   );
+  // }
   
   return (
     <AuthContext.Provider value={{...authContext, loginState}}>
@@ -137,7 +137,10 @@ export default function App() {
             />
           </Drawer.Navigator>
         :
-          <Login />
+          <Stack.Navigator screenOptions={{headerShown: false}}>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Register" component={Register} />
+          </Stack.Navigator>
         }
       </NavigationContainer>
     </AuthContext.Provider>

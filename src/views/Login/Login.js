@@ -14,7 +14,9 @@ const MutationSignIn = gql`
         }
     }
 `;
-const Login = () => {
+const Login = ({
+    navigation
+}) => {
     
     const { signIn } = useContext(AuthContext);
 
@@ -76,6 +78,9 @@ const Login = () => {
                         <Button block danger onPress={onSignIn}>
                             <Text>Sign in</Text>
                         </Button>
+                    </View>
+                    <View style={{paddingHorizontal: 10, alignItems: 'center'}}>
+                        <Text onPress={e => navigation.navigate("Register")} style={{color: "#5DADE2", textDecorationLine: "underline"}}>สมัครสมาชิก</Text>
                     </View>
                 </Form>
             </Content>
