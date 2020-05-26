@@ -12,14 +12,14 @@ import { Text } from 'native-base';
 
 const DrawerContent = (props) => {
     const { navigation } = props;
-    const { signOut, loginState: { userProfile } } = useContext(AuthContext);
-
+    const { signOut, loginState: { userProfile, host } } = useContext(AuthContext);
+    
     return (
         <View style={{flex: 1}}>
             <View style={{backgroundColor: "#4a7c59", height: 140, alignItems: "center", padding: 10, flexDirection: "row"}}>
                 <Image 
                     style={{width: 80, height: 80, borderRadius: 50}}
-                    source={{uri: "https://miro.medium.com/max/3200/1*dt3SJbXiOILlXnZzIqJZOA.png"}}
+                    source={{uri: host + "/picture/user/" + userProfile.image}}
                 />
                 <View style={{padding: 10}}>
                     <Text style={{color: "white"}}>{userProfile?.first_name + " " + userProfile?.last_name}</Text>

@@ -17,7 +17,7 @@ export default function Product({item}){
                 </Body>
             </CardItem>
             <View style={{flex: 1, padding: 10}}>
-                <Text>GeekyAnts</Text>
+                <Text numberOfLines={1}>GeekyAnts</Text>
                 <View style={{flexDirection: 'row', justifyContent: "space-between", alignItems: "center", paddingTop: 5}}>
                     <Text>฿ 1,000</Text>
                     <Text style={{color: "#5DADE2", fontWeight:"400"}} >หยิบใส่ตระกร้า</Text>

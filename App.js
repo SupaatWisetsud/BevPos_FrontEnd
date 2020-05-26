@@ -22,12 +22,16 @@ import {
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
+const host = "http://10.0.2.2:4000";
+// const host = "http://192.168.1.8:4000";
+
 export default function App() {
   
   const initialLoginState = {
     isLoading: true,
     userToken: null,
-    userProfile: null
+    userProfile: null,
+    host
   };
 
   const loginReducer = (prevState, action) => {
@@ -97,7 +101,7 @@ export default function App() {
       dispatch({ type: 'RETRIEVE_TOKEN', token: userToken, profile: profile?._doc || null });
     }, 1000);
   }, []);
-
+  
   if( loginState.isLoading ) {
     return(
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>

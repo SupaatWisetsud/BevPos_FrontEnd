@@ -7,6 +7,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import App from './App';
 
 const host = "http://10.0.2.2:4000/graphql";
+// const host = "http://192.168.1.8:4000/graphql";
 
 const authLink = setContext(( _ , { headers } ) => {
     return {
