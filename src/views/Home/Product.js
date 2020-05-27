@@ -10,9 +10,7 @@ export default function Product({item}){
                 <Body>
                     <Image 
                         style={{width: "100%", height: 140}}
-                        source={{
-                            uri: "https://d10b75yp86lc36.cloudfront.net/Monotaro3/pi/full/mono09243604-071019-02.jpg"
-                        }}
+                        source={require('../../assets/box.jpg')}
                     />
                 </Body>
             </CardItem>

@@ -73,10 +73,10 @@ export default function ModalAddProduct({
             let variables = {
                 userID: userProfile._id,
                 name: state.name,
-                cost: state.cost,
-                price: state.price,
-                count: state.count,
-                count_alert: state.count_alert,
+                cost: state.cost && parseInt(state.cost),
+                price: state.price && parseInt(state.price),
+                count: state.count && parseInt(state.count),
+                count_alert: state.count_alert && parseInt(state.count_alert),
                 barcode: state.barcode,
             }
             
@@ -89,7 +89,7 @@ export default function ModalAddProduct({
                 variables = Object.assign({}, variables, {image: picture});
             }
             
-            await todoCreateProduct({ variables })
+            await todoCreateProduct({ variables, refetchQueries: ["product"] })
             .then(res => {
                 if(res.data.createProduct){
                     setData(initialState);

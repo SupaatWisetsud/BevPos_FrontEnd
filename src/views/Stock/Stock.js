@@ -4,12 +4,49 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { DrawerActions } from '@react-navigation/native';
 
 import ModalAddProduct from './modal/ModalAddProduct';
-import ScanBarcode from '../../dialog/ScanBarcode';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+import { View } from 'react-native';
+import { AuthContext } from '../../hook/context';
+import ListStock from '../../components/ListStock/ListStock';
 
+const QUERY = gql`
+    query product($id: ID!){
+        products(id: $id){
+            type
+            data {
+                _id
+                name
+                cost
+                price
+                count
+                count_alert
+                barcode
+                image
+            }
+        }
+    }
+`;
 export default function Stock({
     navigation
 }){
+    
+    const { loginState: { userProfile: { _id } } } = React.useContext(AuthContext);
+
+    const {data, loading} = useQuery(QUERY, {
+        variables: {id: _id}
+    });
+
     const [modalVisible, setModalVisible] = React.useState(false);
+    const [productsData, setProductsData] = React.useState([]);
+
+    React.useEffect(() => {
+        if(data){
+            setProductsData(data.products.data);
+            // console.log(data.products.data);
+            
+        }
+    }, [data]);
 
     return (
         <Container style={{flex: 1}}>
@@ -28,10 +65,13 @@ export default function Stock({
                     </Button>
                 </Right>
             </Header>
-            <Content>
-                {/* <ScanBarcode show={true} /> */}
-                <ModalAddProduct show={modalVisible} onClose={e => setModalVisible(false)} />
-            </Content>
+
+            <ModalAddProduct show={modalVisible} onClose={e => setModalVisible(false)} />
+
+            <View style={{flex: 1}}>
+                <ListStock data={productsData} />
+            </View>
+
         </Container>
     );
 }
