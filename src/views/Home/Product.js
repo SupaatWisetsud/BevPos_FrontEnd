@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { Card, CardItem, Body, Button } from 'native-base';
+import { AuthContext } from '../../hook/context';
 
 export default function Product({item}){
+
+    const {loginState: {host}} = React.useContext(AuthContext);
 
     return (
         <Card>
@@ -10,15 +13,15 @@ export default function Product({item}){
                 <Body>
                     <Image 
                         style={{width: "100%", height: 140}}
-                        source={require('../../assets/box.jpg')}
+                        source={item.image? {uri: host + "/picture/product/" + item.image} : require('../../assets/box.jpg')}
                     />
                 </Body>
             </CardItem>
-            <View style={{flex: 1, padding: 10}}>
-                <Text numberOfLines={1}>GeekyAnts</Text>
-                <View style={{flexDirection: 'row', justifyContent: "space-between", alignItems: "center", paddingTop: 5}}>
-                    <Text>฿ 1,000</Text>
-                    <Text style={{color: "#5DADE2", fontWeight:"400"}} >หยิบใส่ตระกร้า</Text>
+            <View style={styles.footer}>
+                <Text numberOfLines={1}>{item.name}</Text>
+                <View style={styles.descr}>
+                    <Text>฿ {item.price || "ไม่ระบุ"}</Text>
+                    <Text style={styles.bustket} >หยิบใส่ตระกร้า</Text>
                 </View>
             </View>
         </Card>
@@ -26,20 +29,18 @@ export default function Product({item}){
 }
 
 const styles = StyleSheet.create({
-    itemContainer: {
-      justifyContent: 'flex-end',
-      borderRadius: 5,
-      padding: 10,
-      height: 150,
+    bustket: {
+        color: "#5DADE2", 
+        fontWeight:"400"
     },
-    itemName: {
-      fontSize: 16,
-      color: '#fff',
-      fontWeight: '600',
+    descr: {
+        flexDirection: 'row', 
+        justifyContent: "space-between", 
+        alignItems: "center", 
+        paddingTop: 5
     },
-    itemCode: {
-      fontWeight: '600',
-      fontSize: 12,
-      color: '#fff',
-    },
+    footer: {
+        flex: 1, 
+        padding: 10
+    }
 });

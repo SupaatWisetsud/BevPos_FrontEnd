@@ -105,16 +105,18 @@ const styles = StyleSheet.create({
     },
     rowItem: {
         flex: 1,
-        backgroundColor: "#566573",
+        backgroundColor: "white",
         padding: 10,
         margin: 10,
         flexDirection: "row",
-        borderRadius: 0
+        borderRadius: 0,
+        borderColor: "rgba(0,0,0,0.3)",
+        borderWidth: 1
     },
     text: {
         fontSize: 14,
         marginVertical: 2,
-        color: "#F2F4F4"
+        color: "#333"
     },
     b: {
         fontWeight: "bold"
@@ -123,8 +125,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#CD6155", 
         position: "absolute", 
         zIndex: 5, 
-        left: -34, 
-        top: 28, 
+        left: -30, 
+        top: 20, 
         paddingVertical: 5,
         paddingHorizontal: 32, 
         color: "white",

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header, Left, Button, Body, Title, Right, Content } from 'native-base';
+import { Container, Header, Left, Button, Body, Title, Right, Spinner } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { DrawerActions } from '@react-navigation/native';
 
@@ -27,6 +27,7 @@ const QUERY = gql`
         }
     }
 `;
+
 export default function Stock({
     navigation
 }){
@@ -47,6 +48,14 @@ export default function Stock({
             
         }
     }, [data]);
+
+    if(loading){
+        return (
+            <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+                <Spinner />
+            </View>
+        )
+    }
 
     return (
         <Container style={{flex: 1}}>
