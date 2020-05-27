@@ -173,10 +173,15 @@ export default function Register({
                         <Text style={{paddingHorizontal: 5, paddingVertical: 10}}>Profile</Text>
                         {
                             state.image ?
-                            <Image 
-                                style={{width: "50%", height: 150}}
-                                source={{uri: state.image.uri}}
-                            />:
+                            <View>
+                                <Button small danger block style={{position: "absolute", right: 0, paddingHorizontal: 10}} onPress={e => setData({image: null})}>
+                                    <Icon name="times" color="white" />
+                                </Button>
+                                <Image 
+                                    style={{width: "50%", height: 150}}
+                                    source={{uri: state.image.uri}}
+                                />
+                            </View>:
                             <Button info block onPress={onSelectImage}>
                                 <Text style={{color: "white"}}>Upload Image</Text>
                             </Button>

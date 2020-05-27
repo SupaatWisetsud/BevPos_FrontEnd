@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { DrawerActions } from '@react-navigation/native';
 
 import ModalAddProduct from './modal/ModalAddProduct';
+import ScanBarcode from '../../dialog/ScanBarcode';
 
 export default function Stock({
     navigation
@@ -28,6 +29,7 @@ export default function Stock({
                 </Right>
             </Header>
             <Content>
+                {/* <ScanBarcode show={true} /> */}
                 <ModalAddProduct show={modalVisible} onClose={e => setModalVisible(false)} />
             </Content>
         </Container>

@@ -11,7 +11,13 @@ const SearchComponent = ({
 
     return (
         <View 
-        style={{marginHorizontal: 10, padding: 10, flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+        style={{
+            marginHorizontal: 10, 
+            padding: 10, 
+            flexDirection: "row", 
+            justifyContent: "center", 
+            alignItems: "center",
+        }}>
             <Item regular style={{paddingHorizontal: 10}}>
                 <Icon name="search" size={18} />
                 <Input placeholder="Search"  />

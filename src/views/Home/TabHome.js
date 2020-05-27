@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Container, Button, Header, Left, Body, Title, Right } from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { DrawerActions } from '@react-navigation/native';
 import { FlatGrid } from 'react-native-super-grid';
-import { SearchComponent } from '../../components';
 import Product from './Product';
 
 const TabHome = ({
     navigation
 }) => {
-
-    const [toggleSearch, setToggleSearch] = useState(false);
 
     const items = [
         { name: 'TURQUOISE', code: '#1abc9c' }, { name: 'EMERALD', code: '#2ecc71' },
@@ -27,26 +21,7 @@ const TabHome = ({
     ];
 
     return (
-        <Container style={{flex: 1}}>
-            <Header style={{backgroundColor: "#1a936f"}} androidStatusBarColor="#4a7c59">
-                <Left>
-                    <Button transparent onPress={() => {navigation.dispatch(DrawerActions.openDrawer())}}>
-                        <Icon name="bars" size={26} color="white" />
-                    </Button>
-                </Left>
-                <Body>
-                    <Title style={{fontWeight: "bold"}}>หน้าหลัก</Title>
-                </Body>
-                <Right>
-                    <Button transparent onPress={() => setToggleSearch(!toggleSearch)}>
-                        <Icon name="search" size={18} color="white" />
-                    </Button>
-                </Right>
-            </Header>
-            
-            <SearchComponent 
-                show={toggleSearch}
-            />
+        <View style={{flex: 1}}>
 
             <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
                 <FlatGrid
@@ -59,7 +34,7 @@ const TabHome = ({
                     renderItem={({ item, index }) => <Product item={item} />}
                 />
             </View>
-        </Container>
+        </View>
     )
 }
 
