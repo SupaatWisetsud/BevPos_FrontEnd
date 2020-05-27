@@ -1,70 +1,46 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
-import Product from './Product';
-import { useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
-import { AuthContext } from '../../hook/context';
-import { Spinner } from 'native-base';
-
-const QUERY = gql`
-    query product($id: ID!){
-        products(id: $id){
-            type
-            data {
-                _id
-                name
-                cost
-                price
-                count
-                count_alert
-                barcode
-                image
-            }
-        }
-    }
-`;
+import ItemProduct from './ItemProduct';
+import { Toast, Root } from 'native-base';
+import { BusketContext } from '../../hook/busketContext';
 
 const TabHome = ({
-    navigation
+    navigation,
+    data,
+    refetch = () => null,
+    loading
 }) => {
 
-    const { loginState: { userProfile: { _id } } } = React.useContext(AuthContext);
-
-    const { data, loading, refetch } = useQuery(QUERY, {
-        variables: {id: _id}
-    });
-    
-    const [ productData, setProductData ] = React.useState([]);
-
-    React.useEffect(() => {
-        refetch();
-        if(data) setProductData(data.products.data);
-    }, [data])
-
-    if(loading){
-        return (
-            <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-                <Spinner />
-            </View>
-        )
-    }
+    const { dispatch } = React.useContext(BusketContext);
 
     return (
-        <View style={{flex: 1}}>
+        <Root style={{flex: 1}}>
 
             <View style={{flex: 1}}>
                 <FlatGrid
                     itemDimension={130}
-                    items={productData}
+                    items={data}
                     style={styles.gridView}
                     // staticDimension={300}
                     // fixed
+                    onRefresh={() => {refetch()}}
+                    refreshing={loading}
                     spacing={15}
-                    renderItem={({ item, index }) => <Product item={item} />}
+                    renderItem={({ item, index }) => (
+                        <ItemProduct 
+                            item={item} 
+                            onPickUp={e => {
+                                dispatch({type: "ADD", payload: e});
+                                Toast.show({
+                                    text: "เพิ่มสินค้าลงในตระกร้าเสร็จสิ้น",
+                                })
+                            }}
+                        />
+                    )}
                 />
             </View>
-        </View>
+        </Root>
     )
 }
 

@@ -77,7 +77,7 @@ export default function ModalAddProduct({
                 price: state.price && parseInt(state.price),
                 count: state.count && parseInt(state.count),
                 count_alert: state.count_alert && parseInt(state.count_alert),
-                barcode: state.barcode,
+                barcode: state.barcode && state.barcode.toString(),
             }
             
             if(state.image){
@@ -88,6 +88,7 @@ export default function ModalAddProduct({
                 });
                 variables = Object.assign({}, variables, {image: picture});
             }
+            
             
             await todoCreateProduct({ variables, refetchQueries: ["product"] })
             .then(res => {

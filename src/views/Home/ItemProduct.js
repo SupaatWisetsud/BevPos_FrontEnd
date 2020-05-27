@@ -1,9 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
-import { Card, CardItem, Body, Button } from 'native-base';
+import { Card, CardItem, Body } from 'native-base';
 import { AuthContext } from '../../hook/context';
 
-export default function Product({item}){
+export default function ItemProduct({
+    item,
+    onPickUp
+}){
 
     const {loginState: {host}} = React.useContext(AuthContext);
 
@@ -21,7 +24,7 @@ export default function Product({item}){
                 <Text numberOfLines={1}>{item.name}</Text>
                 <View style={styles.descr}>
                     <Text>฿ {item.price || "ไม่ระบุ"}</Text>
-                    <Text style={styles.bustket} >หยิบใส่ตระกร้า</Text>
+                    <Text style={styles.bustket} onPress={e => onPickUp(item)} >หยิบใส่ตระกร้า</Text>
                 </View>
             </View>
         </Card>
