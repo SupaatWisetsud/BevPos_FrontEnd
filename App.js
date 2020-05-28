@@ -18,14 +18,15 @@ import {
   Home,
   Stock,
   Report,
-  About
+  About,
+  Alert
 } from './src/views';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-// const host = "http://10.0.2.2:4000";
-const host = "http://192.168.1.8:4000";
+const host = "http://10.0.2.2:4000";
+// const host = "http://192.168.1.8:4000";
 
 export default function App() {
   
@@ -118,6 +119,12 @@ export default function App() {
         <NavigationContainer>
           {loginState.userToken? 
             <Drawer.Navigator initialRouteName="Home" drawerContent={props => <DrawerContent {...props} />}>
+              <Drawer.Screen name="Alert" component={Alert} 
+                options={{
+                  drawerIcon: ({color, size}) => <Icon name="bell" color={color} size={size} />,
+                  drawerLabel: "แจ้งเตือน"
+                }}    
+              />
               <Drawer.Screen name="Home" component={Home} 
                 options={{
                   drawerIcon: ({color, size}) => <Icon name="home" color={color} size={size} />,

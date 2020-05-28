@@ -4,6 +4,7 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'native-base';
 import { AuthContext } from '../../hook/context';
+import { BusketContext } from '../../hook/busketContext';
 import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
@@ -14,11 +15,14 @@ const MUTATION = gql`
 `;
 
 export default function ListStock({
-    data = []
+    data = [],
+    onRefresh = () => null,
+    refreshing
 }){
     
     const [ todoRemoveProduct ] = useMutation(MUTATION);
 
+    const { dispatch } = React.useContext(BusketContext);
     const { loginState: {host} } = React.useContext(AuthContext);
     let dataMapKey = data.map((n, index) => ({...n, key: index.toString()}));
     
@@ -28,14 +32,15 @@ export default function ListStock({
         }
     };
 
-    const onDelete = async (id, rowMap, key) => {
+    const onDelete = async (item, rowMap, key) => {
         
         closeRow(rowMap, key);
 
         await todoRemoveProduct({
-            variables: {id},
+            variables: {id : item._id},
             refetchQueries: ["product"]
         })
+        .then(result => dispatch({type: "REMOVE", payload: item}))
         .catch(err => console.log(err));
     }
 
@@ -52,6 +57,8 @@ export default function ListStock({
         <View style={{flex: 1}}>
             <SwipeListView
                 data={dataMapKey}
+                onRefresh={onRefresh}
+                refreshing={refreshing}
                 renderItem={ ({item}, rowMap) => (
                     <View style={styles.rowItem}>
                         {(item.count < item.count_alert && item.count !== null) &&  <Text style={styles.alert}>สินค้าใกล้หมดแล้ว</Text>}
@@ -84,7 +91,7 @@ export default function ListStock({
                         <Button info style={[styles.button]}>
                             <Icon name="edit" color="white" size={24} />
                         </Button>
-                        <Button danger style={[styles.button]} onPress={e => onDelete(item._id, rowMap, item.key)}>
+                        <Button danger style={[styles.button]} onPress={e => onDelete(item, rowMap, item.key)}>
                             <Icon name="trash" color="white" size={24} />
                         </Button>
                     </View>

@@ -1,19 +1,28 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import ItemProduct from './ItemProduct';
 import { Toast, Root } from 'native-base';
 import { BusketContext } from '../../hook/busketContext';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const TabHome = ({
     navigation,
-    data,
+    data = [],
     refetch = () => null,
     loading
 }) => {
 
     const { dispatch } = React.useContext(BusketContext);
-
+    
+    if(data[0] === undefined){
+        return (
+            <View style={{flex: 1, justifyContent: "center", alignItems: "center", flexDirection: "row"}}>
+                <Icon name="archive" size={24} style={{fontWeight: "bold", marginRight: 5}} />
+                <Text style={{fontSize: 18, fontWeight: "bold"}}>ไม่มีสินค้า</Text>
+            </View>
+        )
+    }
     return (
         <Root style={{flex: 1}}>
 
@@ -27,17 +36,20 @@ const TabHome = ({
                     onRefresh={() => {refetch()}}
                     refreshing={loading}
                     spacing={15}
-                    renderItem={({ item, index }) => (
-                        <ItemProduct 
-                            item={item} 
-                            onPickUp={e => {
-                                dispatch({type: "ADD", payload: e});
-                                Toast.show({
-                                    text: "เพิ่มสินค้าลงในตระกร้าเสร็จสิ้น",
-                                })
-                            }}
-                        />
-                    )}
+                    renderItem={({ item, index }) => {
+                        if(item.count === null || item.count === 0) return null
+                        return (
+                            <ItemProduct 
+                                item={item} 
+                                onPickUp={e => {
+                                    dispatch({type: "ADD", payload: e});
+                                    Toast.show({
+                                        text: "เพิ่มสินค้าลงในตระกร้าเสร็จสิ้น",
+                                    })
+                                }}
+                            />
+                        )
+                    }}
                 />
             </View>
         </Root>

@@ -26,16 +26,21 @@ const DrawerContent = (props) => {
                     <Text style={{color: "white"}}>status: online</Text>
                 </View>
             </View>
-            <DrawerContentScrollView {...props}>
-                <DrawerItemList {...props} />
-                <DrawerItem 
-                    icon={({color, size}) => <Icon name="sign-out" color={color} size={size} />}
-                    label="ออกจากระบบ"
-                    onPress={() => {
-                        navigation.dispatch(DrawerActions.closeDrawer());
-                        signOut();
-                    }}
-                />
+            <DrawerContentScrollView {...props} contentContainerStyle={{flex: 1, justifyContent:"space-between"}}>
+                <View>
+                    <DrawerItemList {...props} />
+                </View>
+                <View style={{backgroundColor: "#CD6155"}}>
+                    <DrawerItem
+                        inactiveTintColor="white" 
+                        icon={({color, size}) => <Icon name="sign-out" color={color} size={size} />}
+                        label="ออกจากระบบ"
+                        onPress={() => {
+                            navigation.dispatch(DrawerActions.closeDrawer());
+                            signOut();
+                        }}
+                    />
+                </View>
             </DrawerContentScrollView>
         </View>
     );

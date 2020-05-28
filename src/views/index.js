@@ -4,6 +4,7 @@ import Stock from './Stock';
 import Report from './Report';
 import About from './About';
 import Register from './Register';
+import Alert from './Alert';
 
 export {
     Login,
@@ -11,5 +12,6 @@ export {
     Home,
     Stock,
     Report,
-    About
+    About,
+    Alert
 }

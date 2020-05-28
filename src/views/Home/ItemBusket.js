@@ -28,9 +28,12 @@ export default ItemBusket = ({
                         <Text style={styles.txtBtn}> - </Text>
                     </Button>
                     <Text style={styles.count}>{item.busket_count}</Text>
-                    <Button small success block style={styles.button} onPress={e => onUp(item)}>
-                        <Text style={styles.txtBtn}> + </Text>
-                    </Button>
+                    {
+                        (item.count - item.busket_count) !== 0 &&
+                        <Button small success block style={styles.button} onPress={e => onUp(item)}>
+                            <Text style={styles.txtBtn}> + </Text>
+                        </Button> 
+                    }
                 </View>
             </View>
         </Card>
@@ -60,6 +63,6 @@ const styles = StyleSheet.create({
     txtBtn: {color: "white"},
     count: {
         fontSize: 20, 
-        marginHorizontal: 10
+        marginHorizontal: 25
     }
 })

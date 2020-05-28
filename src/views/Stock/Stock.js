@@ -8,7 +8,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { View } from 'react-native';
 import { AuthContext } from '../../hook/context';
-import ListStock from '../../components/ListStock/ListStock';
+import {ListStock} from '../../components';
 
 const QUERY = gql`
     query product($id: ID!){
@@ -34,7 +34,7 @@ export default function Stock({
     
     const { loginState: { userProfile: { _id } } } = React.useContext(AuthContext);
 
-    const {data, loading} = useQuery(QUERY, {
+    const {data, loading, refetch} = useQuery(QUERY, {
         variables: {id: _id}
     });
 
@@ -48,14 +48,6 @@ export default function Stock({
             
         }
     }, [data]);
-
-    if(loading){
-        return (
-            <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-                <Spinner />
-            </View>
-        )
-    }
 
     return (
         <Container style={{flex: 1}}>
@@ -78,7 +70,13 @@ export default function Stock({
             <ModalAddProduct show={modalVisible} onClose={e => setModalVisible(false)} />
 
             <View style={{flex: 1}}>
-                <ListStock data={productsData} />
+
+                <ListStock 
+                    data={productsData} 
+                    refreshing={loading}
+                    onRefresh={refetch}
+                />
+            
             </View>
 
         </Container>

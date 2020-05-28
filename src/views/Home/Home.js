@@ -38,6 +38,7 @@ const Home = ({
 
     const [toggleSearch, setToggleSearch] = React.useState(false);
     const [dialogScan, setDialogScan] = React.useState(false);
+    const [tabIndex, setTabIndex] = React.useState(0);
 
     const { data, loading, refetch } = useQuery(QUERY, {
         variables: {id: _id}
@@ -66,9 +67,11 @@ const Home = ({
                     <Button transparent onPress={() => setDialogScan(true)}>
                         <Icon name="barcode" size={18} color="white" />
                     </Button>
-                    <Button transparent onPress={() => setToggleSearch(!toggleSearch)}>
-                        <Icon name="search" size={18} color="white" />
-                    </Button>
+                    {tabIndex === 0 && 
+                        <Button transparent onPress={() => setToggleSearch(!toggleSearch)}>
+                            <Icon name="search" size={18} color="white" />
+                        </Button>
+                    }
                 </Right>
             </Header>
             
@@ -96,6 +99,7 @@ const Home = ({
 
             <Tabs 
                 tabBarPosition="bottom"
+                onChangeTab={ ({i}) => setTabIndex(i)}
             >
                 <Tab 
                     heading={ 
@@ -112,7 +116,7 @@ const Home = ({
                 </Tab>
                 <Tab 
                     heading={ 
-                        <TabHeading style={{backgroundColor: "#566573"}}>
+                        <TabHeading style={{backgroundColor: "#566573"}} >
                             <Icon name="shopping-basket" size={24} color="white" />
                             <Text style={{color: "white"}}>ตระกร้า</Text>
                         </TabHeading>
