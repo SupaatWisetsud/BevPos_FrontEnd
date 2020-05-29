@@ -17,6 +17,7 @@ const TabBusket = ({
 
     return (
         <View style={{flex: 1}}>
+
             <View style={styles.total}>
                 <Text style={styles.txtTotal}>ยอดรวม ฿: {total} </Text>
                 <View style={{flexDirection: "row"}}>

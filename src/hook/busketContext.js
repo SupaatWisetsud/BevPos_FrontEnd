@@ -40,6 +40,22 @@ const reducer = (state = [], action) => {
         case "REMOVE_ALL":
             return [];
 
+        case "CHANGE":
+            
+            if(action.number > 0 ){
+                
+                if(action.payload.count >= action.number){
+                    state[checkIndex].busket_count = action.number;
+                }else{
+                    state[checkIndex].busket_count =  state[checkIndex].count;
+                }
+                
+            }else{
+                state.splice(checkIndex, 1);    
+            }
+
+            return [].concat(state);
+            
         default:
             return state;
     }

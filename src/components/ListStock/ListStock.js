@@ -43,15 +43,6 @@ export default function ListStock({
         .then(result => dispatch({type: "REMOVE", payload: item}))
         .catch(err => console.log(err));
     }
-
-    if(data[0] === undefined){
-        return (
-            <View style={{flex: 1, justifyContent: "center", alignItems: "center", flexDirection: 'row'}}>
-                <Icon name="sticky-note" size={18} style={{fontWeight: "bold", marginRight: 5}} />
-                <Text style={{fontSize: 18, fontWeight: "bold"}}>ไม่มีข้อมูล</Text>
-            </View>
-        )
-    }
     
     return (
         <View style={{flex: 1}}>
@@ -59,6 +50,12 @@ export default function ListStock({
                 data={dataMapKey}
                 onRefresh={onRefresh}
                 refreshing={refreshing}
+                ListEmptyComponent={() => (
+                    <View style={styles.emptyList}>
+                        <Icon name="sticky-note" size={18} style={{fontWeight: "bold", marginRight: 5}} />
+                        <Text style={{fontSize: 18, fontWeight: "bold"}}>ไม่มีข้อมูล</Text>
+                    </View>
+                )}
                 renderItem={ ({item}, rowMap) => (
                     <View style={styles.rowItem}>
                         {(item.count < item.count_alert && item.count !== null) &&  <Text style={styles.alert}>สินค้าใกล้หมดแล้ว</Text>}
@@ -147,5 +144,12 @@ const styles = StyleSheet.create({
         padding: 20, 
         height: "120%"
     },
-    imageItem: {width: 120, height: 120, borderRadius: 5}
+    imageItem: {width: 120, height: 120, borderRadius: 5},
+    emptyList: {
+        flex: 1, 
+        justifyContent: "center", 
+        alignItems: "center", 
+        flexDirection: "row", 
+        marginTop: "65%"
+    }
 })

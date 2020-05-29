@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Dialog } from 'react-native-simple-dialogs';
-import { View, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import BarcodeMask from 'react-native-barcode-mask';
  

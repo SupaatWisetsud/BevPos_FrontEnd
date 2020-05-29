@@ -15,14 +15,6 @@ const TabHome = ({
 
     const { dispatch } = React.useContext(BusketContext);
     
-    if(data[0] === undefined){
-        return (
-            <View style={{flex: 1, justifyContent: "center", alignItems: "center", flexDirection: "row"}}>
-                <Icon name="archive" size={24} style={{fontWeight: "bold", marginRight: 5}} />
-                <Text style={{fontSize: 18, fontWeight: "bold"}}>ไม่มีสินค้า</Text>
-            </View>
-        )
-    }
     return (
         <Root style={{flex: 1}}>
 
@@ -33,6 +25,12 @@ const TabHome = ({
                     style={styles.gridView}
                     // staticDimension={300}
                     // fixed
+                    ListEmptyComponent={() => (
+                        <View style={styles.emptyList}>
+                            <Icon name="archive" size={24} style={{fontWeight: "bold", marginRight: 5}} />
+                            <Text style={{fontSize: 18, fontWeight: "bold"}}>ไม่มีสินค้า</Text>
+                        </View>
+                    )}
                     onRefresh={() => {refetch()}}
                     refreshing={loading}
                     spacing={15}
@@ -60,6 +58,13 @@ const styles = StyleSheet.create({
     gridView: {
       flex: 1,
     },
+    emptyList: {
+        flex: 1, 
+        justifyContent: "center", 
+        alignItems: "center", 
+        flexDirection: "row", 
+        marginTop: "65%"
+    }
 });
 
 export default TabHome;
