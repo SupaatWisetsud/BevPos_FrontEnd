@@ -52,6 +52,19 @@ const Home = ({
         })();
     }, [data])
 
+    const onSearch = (txt) => {
+        
+        if(data){
+            const deposit = data.products.data.filter(n => {
+                const regex = new RegExp(`${txt}`);
+                return regex.test(n.name);
+            });
+
+            setProductData(deposit);
+        }        
+        
+    }
+
     return (
         <Container>
             <Header style={{backgroundColor: "#1a936f"}} androidStatusBarColor="#4a7c59">
@@ -95,6 +108,7 @@ const Home = ({
             
             <SearchComponent 
                 show={toggleSearch}
+                onChangeText={txt => onSearch(txt)}
             />
 
             <Tabs 

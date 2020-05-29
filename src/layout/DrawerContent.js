@@ -30,9 +30,8 @@ const DrawerContent = (props) => {
                 <View>
                     <DrawerItemList {...props} />
                 </View>
-                <View style={{backgroundColor: "#CD6155"}}>
+                <View style={{backgroundColor: "#F4F6F6"}}>
                     <DrawerItem
-                        inactiveTintColor="white" 
                         icon={({color, size}) => <Icon name="sign-out" color={color} size={size} />}
                         label="ออกจากระบบ"
                         onPress={() => {

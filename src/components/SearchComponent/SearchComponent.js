@@ -4,7 +4,8 @@ import { Item, Input } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SearchComponent = ({
-    show = false
+    show = false,
+    onChangeText = () => null
 }) => {
 
     if(!show) return null;
@@ -20,7 +21,10 @@ const SearchComponent = ({
         }}>
             <Item regular style={{paddingHorizontal: 10}}>
                 <Icon name="search" size={18} />
-                <Input placeholder="Search"  />
+                <Input 
+                    placeholder="Search"  
+                    onChangeText={txt => onChangeText(txt)}
+                />
             </Item>
         </View>
     );
