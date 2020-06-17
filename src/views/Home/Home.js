@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { DrawerActions } from '@react-navigation/native';
 import TabHome from './TabHome';
 import TabBusket from './TabBusket';
-import { Container, Header, Left, Button, Body, Title, Right, Tabs, Tab, TabHeading, Text, Toast } from 'native-base';
+import { Container, Header, Left, Button, Body, Title, Right, Tabs, Tab, TabHeading, Text } from 'native-base';
 import ScanBarcode from '../../dialog/ScanBarcode';
 import { SearchComponent } from '../../components';
 import { useQuery } from '@apollo/react-hooks';
@@ -46,10 +46,15 @@ const Home = ({
 
     const [ productData, setProductData ] = React.useState([]);
     
+    let unmout = false;
     React.useEffect(() => {
-        (function(){
-            if(data) setProductData(data.products.data);
-        })();
+        
+        if(data && !unmout) setProductData(data.products.data);
+        
+        return () => {
+            unmout = true
+        }
+
     }, [data])
 
     const onSearch = (txt) => {
@@ -95,19 +100,15 @@ const Home = ({
                     let dataScan = productData.find(n => n.barcode === data);
                     if(dataScan) {
                         dispatch({type: "ADD", payload: dataScan})
-                        Toast.show({
-                            text: "เพิ่มสินค้าสำเร็จ"
-                        })
+                        ToastAndroid.show("เพิ่มสินค้าลงในตระกร้า", ToastAndroid.SHORT);
                     }
-                    else Toast.show({
-                        text: "หา Barcode สินค้านี้ไม่เจอ!"
-                    })
+                    else  ToastAndroid.show("หา Barcode สินค้านี้ไม่เจอ!", ToastAndroid.SHORT);
                     setDialogScan(false);
                 }}
             />
             
             <SearchComponent 
-                show={toggleSearch}
+                show={toggleSearch && tabIndex === 0}
                 onChangeText={txt => onSearch(txt)}
             />
 

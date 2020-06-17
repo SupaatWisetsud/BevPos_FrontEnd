@@ -8,7 +8,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { View } from 'react-native';
 import { AuthContext } from '../../hook/context';
-import {ListStock} from '../../components';
+import {ListStock, SearchComponent} from '../../components';
 
 const QUERY = gql`
     query product($id: ID!){
@@ -40,6 +40,7 @@ export default function Stock({
 
     const [modalVisible, setModalVisible] = React.useState(false);
     const [productsData, setProductsData] = React.useState([]);
+    const [toggleSearch, setToggleSearch] = React.useState(false);
 
     React.useEffect(() => {
         if(data){
@@ -48,6 +49,19 @@ export default function Stock({
             
         }
     }, [data]);
+
+    const onSearch = (txt) => {
+        
+        if(data){
+            const deposit = data.products.data.filter(n => {
+                const regex = new RegExp(`${txt}`);
+                return regex.test(n.name);
+            });
+
+            setProductsData(deposit);
+        }        
+        
+    }
 
     return (
         <Container style={{flex: 1}}>
@@ -64,10 +78,18 @@ export default function Stock({
                     <Button transparent onPress={e => setModalVisible(true)}>
                         <Icon name="plus-square" size={26} color="white" />
                     </Button>
+                    <Button transparent onPress={e => setToggleSearch(!toggleSearch)}>
+                        <Icon name="search" size={26} color="white" />
+                    </Button>
                 </Right>
             </Header>
 
             <ModalAddProduct show={modalVisible} onClose={e => setModalVisible(false)} />
+
+            <SearchComponent
+                show={toggleSearch}
+                onChangeText={txt => onSearch(txt)}
+            />
 
             <View style={{flex: 1}}>
 

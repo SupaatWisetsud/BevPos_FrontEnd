@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, ToastAndroid } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import ItemProduct from './ItemProduct';
-import { Toast, Root } from 'native-base';
 import { BusketContext } from '../../hook/busketContext';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -14,9 +13,9 @@ const TabHome = ({
 }) => {
 
     const { dispatch } = React.useContext(BusketContext);
-    
+      
     return (
-        <Root style={{flex: 1}}>
+        <View style={{flex: 1}}>
 
             <View style={{flex: 1}}>
                 <FlatGrid
@@ -41,16 +40,14 @@ const TabHome = ({
                                 item={item} 
                                 onPickUp={e => {
                                     dispatch({type: "ADD", payload: e});
-                                    Toast.show({
-                                        text: "เพิ่มสินค้าลงในตระกร้าเสร็จสิ้น",
-                                    })
+                                    ToastAndroid.show("เพิ่มสินค้าลงในตระกร้า", ToastAndroid.SHORT);
                                 }}
                             />
                         )
                     }}
                 />
             </View>
-        </Root>
+        </View>
     )
 }
 

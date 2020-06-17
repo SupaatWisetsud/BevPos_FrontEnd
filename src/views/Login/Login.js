@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Container, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
+import { Container, Content, Form, Item, Input, Label, Button, Text, Spinner } from 'native-base';
 import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { AuthContext } from '../../hook/context';
@@ -23,7 +23,7 @@ const Login = ({
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const [ todoSignIn ] = useMutation(MutationSignIn);
+    const [ todoSignIn, {loading, data} ] = useMutation(MutationSignIn);
 
     const onSignIn = async () => {
         
@@ -77,7 +77,14 @@ const Login = ({
                     </Item>
                     <View style={{paddingHorizontal: 10, paddingVertical: 20}}>
                         <Button block danger onPress={onSignIn}>
-                            <Text>Sign in</Text>
+                            {loading? 
+                                <React.Fragment>
+                                    <Spinner color="white" size={18} /> 
+                                    <Text style={{fontSize: 16}}>loading..</Text>
+                                </React.Fragment>
+                                :
+                                <Text>Sign in</Text>
+                            }
                         </Button>
                     </View>
                     <View style={{paddingHorizontal: 10, alignItems: 'center'}}>

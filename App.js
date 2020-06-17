@@ -114,10 +114,10 @@ export default function App() {
   }
   
   return (
-    <BusketProvider>
-      <AuthContext.Provider value={{...authContext, loginState}}>
+    <AuthContext.Provider value={{...authContext, loginState}}>
         <NavigationContainer>
           {loginState.userToken? 
+          <BusketProvider>
             <Drawer.Navigator initialRouteName="Home" drawerContent={props => <DrawerContent {...props} />}>
               <Drawer.Screen name="Alert" component={Alert} 
                 options={{
@@ -150,14 +150,14 @@ export default function App() {
                 }}    
               />
             </Drawer.Navigator>
+          </BusketProvider>
           :
-            <Stack.Navigator screenOptions={{headerShown: false}}>
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="Register" component={Register} />
-            </Stack.Navigator>
+          <Stack.Navigator screenOptions={{headerShown: false}}>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Register" component={Register} />
+          </Stack.Navigator>
           }
         </NavigationContainer>
       </AuthContext.Provider>
-    </BusketProvider>
   );
 }
