@@ -2,6 +2,21 @@
 # yarn lockfile v1
 
 
+"@apollo/client@^3.0.0-beta.50":
+  version "3.0.0-beta.50"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.0-beta.50.tgz#1b1de6e9d2380fda344f75cd3d80a9fdd0589fb1"
+  integrity sha512-sjLd+d0bVPnmlR5UYQ0LNamVcdCPSgRB6gyt1IByIfp5Q8qPlpM0uZiMQerhSQrfuDVhgQoLnfv13S3/CoJhUQ==
+  dependencies:
+    "@types/zen-observable" "^0.8.0"
+    "@wry/equality" "^0.1.9"
+    fast-json-stable-stringify "^2.0.0"
+    graphql-tag "^2.10.2"
+    optimism "^0.12.1"
+    symbol-observable "^1.2.0"
+    ts-invariant "^0.4.4"
+    tslib "^1.10.0"
+    zen-observable "^0.8.14"
+
 "@apollo/react-common@^3.1.4":
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/@apollo/react-common/-/react-common-3.1.4.tgz#ec13c985be23ea8e799c9ea18e696eccc97be345"
@@ -1293,6 +1308,13 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
+"@react-native-community/async-storage@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.11.0.tgz#bf81b8813080846f150c67f531987c429b442166"
+  integrity sha512-Pq9LlmvtCEKAGdkyrgTcRxNh2fnHFykEj2qnRYijOl1pDIl2MkD5IxaXu5eOL0wgOtAl4U//ff4z40Td6XR5rw==
+  dependencies:
+    deep-assign "^3.0.0"
+
 "@react-native-community/cli-debugger-ui@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-3.0.0.tgz#d01d08d1e5ddc1633d82c7d84d48fff07bd39416"
@@ -1655,6 +1677,13 @@
   integrity sha512-LrKVLove/zw6h2Md/KZyWxIkFM6AoyKp71OqpH9Hiip1csjPVoD3tPxlbQUNxEnHENks3UGgNpSBCAfq9KWuag==
   dependencies:
     "@types/node" ">=6"
+    tslib "^1.9.3"
+
+"@wry/context@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@wry/context/-/context-0.5.2.tgz#f2a5d5ab9227343aa74c81e06533c1ef84598ec7"
+  integrity sha512-B/JLuRZ/vbEKHRUiGj6xiMojST1kHhu4WcreLfNN7q9DqQFrb97cWgf/kiYsPSUCAMVN0HzfFc8XjJdzgZzfjw==
+  dependencies:
     tslib "^1.9.3"
 
 "@wry/equality@^0.1.2", "@wry/equality@^0.1.9":
@@ -3874,7 +3903,7 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.3
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
   integrity sha512-WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==
 
-graphql-tag@^2.4.2:
+graphql-tag@^2.10.2, graphql-tag@^2.4.2:
   version "2.10.3"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.10.3.tgz#ea1baba5eb8fc6339e4c4cf049dabe522b0edf03"
   integrity sha512-4FOv3ZKfA4WdOKJeHdz6B3F/vxBLSgmBcGeAFPf4n1F64ltJUvOOerNj0rsJxONQGdhUMynQIvd6LzB+1J5oKA==
@@ -4996,6 +5025,11 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+jwt-decode@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
+  integrity sha1-fYa9VmefWM5qhHBKZX3TkruoGnk=
+
 kind-of@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-1.1.0.tgz#140a3d2d41a36d2efcfa9377b62c24f8495a5c44"
@@ -5903,6 +5937,13 @@ optimism@^0.10.0:
   dependencies:
     "@wry/context" "^0.4.0"
 
+optimism@^0.12.1:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/optimism/-/optimism-0.12.1.tgz#933f9467b9aef0e601655adb9638f893e486ad02"
+  integrity sha512-t8I7HM1dw0SECitBYAqFOVHoBAHEQBTeKjIL9y9ImHzAVkdyPK4ifTgM4VJRDtTUY4r/u5Eqxs4XcGPHaoPkeQ==
+  dependencies:
+    "@wry/context" "^0.5.2"
+
 optionator@^0.8.1:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/optionator/-/optionator-0.8.3.tgz#84fa1d036fe9d3c7e21d99884b601167ec8fb495"
@@ -6434,6 +6475,11 @@ react-native-gesture-handler@^1.6.1:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-image-picker@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-2.3.1.tgz#1977b65e07793d2c0b2d1976fb675c5f75ad7f11"
+  integrity sha512-c/a2h7/T7yBo5KlNQhcSn4xf4+6Li6LfJ59+GZT1ZzzWrj/6X8DiJ/TJBOlOZMC5tJriZKuRkWSsr74k6z+brw==
+
 react-native-iphone-x-helper@^1.0.3, react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
@@ -6464,6 +6510,18 @@ react-native-screens@^2.8.0:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.8.0.tgz#9f989096fc5ccf248e0dfa93a74f1a64057e15f1"
   integrity sha512-fUCIQLZX+5XB0ypWX038P3zso54IFFjTsQUZJWEsjC3pp5rPItAt5SzqtJn+uVjcJaczZ+dpIuvj6IFLqkWLZQ==
 
+react-native-simple-dialogs@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-simple-dialogs/-/react-native-simple-dialogs-1.2.1.tgz#37f63243b7c91ba303eeb3d8f2ba23eb81fb6926"
+  integrity sha512-oceCB2LCXP0HiIbOvddXIbJr+Cv7xL43U0H3YiySRpMlz/7EWu87mMbTgmfrNbb5uhw+k1tnDuzjqqrArAKy9w==
+
+react-native-super-grid@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-super-grid/-/react-native-super-grid-3.2.0.tgz#207c18d2061fe7e18be3937ce900c7dfd5ec21a2"
+  integrity sha512-jsDnHJ4H+Qas/PUlBOWrSQ6HgYRmmOBLDFg+k2UWVew2pI5EOWF+3/U577ypMrowUaurmeRsP8VCXHCH2mdnDQ==
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-svg@^12.1.0:
   version "12.1.0"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-12.1.0.tgz#acfe48c35cd5fca3d5fd767abae0560c36cfc03d"
@@ -6471,6 +6529,11 @@ react-native-svg@^12.1.0:
   dependencies:
     css-select "^2.1.0"
     css-tree "^1.0.0-alpha.39"
+
+react-native-swipe-list-view@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-swipe-list-view/-/react-native-swipe-list-view-3.1.0.tgz#4c59a8b6358d203f406d199463e2347283ac08d1"
+  integrity sha512-JVRAN3w3fOjNnpfLSWi++X+4pB2SK4+5gFhAU5NFHcsLinPBLZT8MMpfQAtAa3nFdFrbtdogDMre5mHOScLycg==
 
 react-native-unimodules@~0.9.0:
   version "0.9.1"
@@ -7448,7 +7511,7 @@ symbol-observable@1.0.1:
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.1.tgz#8340fc4702c3122df5d22288f88283f513d3fdd4"
   integrity sha1-g0D8RwLDEi310iKI+IKD9RPT/dQ=
 
-symbol-observable@^1.0.2:
+symbol-observable@^1.0.2, symbol-observable@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
   integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
@@ -8235,7 +8298,7 @@ zen-observable-ts@^0.8.21:
     tslib "^1.9.3"
     zen-observable "^0.8.0"
 
-zen-observable@^0.8.0:
+zen-observable@^0.8.0, zen-observable@^0.8.14:
   version "0.8.15"
   resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.15.tgz#96415c512d8e3ffd920afd3889604e30b9eaac15"
   integrity sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==
